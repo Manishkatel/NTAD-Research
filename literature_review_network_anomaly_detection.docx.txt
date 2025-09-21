@@ -1,0 +1,229 @@
+﻿An Unsupervised Network Anomaly
+ Detection Model and Implementation 
+
+
+Research focus: network anomaly detection using deep-learning
+Problems solved: lack of large amount of labeled data in model training
+Difficult to detect unknown networks attacks or variant attacks
+This paper collects and organizes a large amount of data and designs four types of network attack data, including new attack means, worms, system vulnerabilities and botnet
+So they don’t just use traditional method like unsupervised k-means classification but added deep learning k-means classification. 
+
+
+The problem with supervised learning is that it requires lot of labelled data-so, they solved that by using unsupervised learning which is more suitable for unknown network environments. 
+Unsupervised learning does not rely on labels, saves the cost of adding labels, and is more suitable for unknown network environments
+
+
+📌 Workflow of the Paper (Unsupervised Anomaly Detection with Autoencoder + Clustering)
+1. Problem Identification
+   * Recognized that supervised models require lots of labeled data (hard to obtain).
+   * Decided to design an unsupervised anomaly detection approach that doesn’t need labels.
+2. Data Preprocessing
+   * Extracted basic network traffic features.
+   * Applied time correlation analysis to capture temporal dependencies in traffic.
+   * Used hierarchical clustering to reduce data size and dimensionality, making training/detection faster and less memory-intensive.
+3. Feature Learning
+   * Implemented an Autoencoder to learn representations of normal traffic.
+   * Autoencoder trained to reconstruct normal patterns → deviations in reconstruction indicate anomalies.
+   * Leveraged concepts from:
+      * Sparse Autoencoders (Ng)
+      * Denoising Autoencoders (Vincent)
+      * Variational Autoencoders (Kingma)
+      * Contractive Autoencoders (Rifai)
+4. Anomaly Detection
+   * Once the Autoencoder learns normal traffic patterns, new input traffic is compared.
+   * If reconstruction error is high, it’s flagged as anomalous.
+5. Efficiency Optimization
+   * Combined hierarchical clustering + time correlation features to reduce computational cost (time + space complexity).
+   * This makes the method more efficient and scalable.
+6. Validation / Testing
+   * Tested the model on benchmark datasets (e.g., KDD Cup 1999 dataset in prior related work).
+   * Demonstrated that the unsupervised model can detect abnormal traffic effectively without requiring labeled data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Why they used Autoencoder for anomaly detection?
+
+
+Limitations of Common Unsupervised Algorithms
+* Hierarchical Clustering:
+   * Very high computational complexity.
+   * Tends to produce chain-like clusters, reducing accuracy.
+* K-Means:
+   * Sensitive to the choice of initial center points.
+   * Often falls into local optima.
+   * Can only effectively detect globular clusters, missing irregular patterns.
+   * Not suitable for detecting unknown attacks.
+* DBSCAN (Density-Based Clustering):
+   * Works well for density-based patterns, but as data grows, computation and time complexity increase sharply.
+   * Not practical for large-scale network traffic.
+________________
+
+
+✅ Why Autoencoder is Better for Anomaly Detection
+* Learns compressed representations of normal traffic automatically (no manual feature engineering needed).
+* Can reconstruct input data; anomalies are detected when reconstruction error is high.
+* Scales better to large datasets compared to clustering methods.
+* More effective for capturing non-linear and complex traffic patterns.
+* Suitable for detecting unknown or novel attacks, since it models normal behavior rather than predefined clusters.
+
+Note: The main thing is to make the model computationally less expensive and make detect wide range of anomalies.
+
+
+
+
+Main thing about this paper is that it only helps detects four types of anomalies: new attack means, worms, system vulnerabilities and botnets
+So one thing we can do is make a dataset with more anomalies and detect it. 
+Question to ask: Are there better model than autoencoder for anomaly detection? 
+
+
+Multi-Stage Optimized Machine Learning Framework for Network Intrusion Detection
+
+
+There are many network intrusion detection systems (NIDSs) but is the main problem in that? 
+  The study investigates the impact of oversampling techniques on training sample size and identifies the minimal suitable training sample size.
+  It compares two feature selection techniques:
+* Information Gain
+* Correlation-based selection
+  It examines their effect on detection performance and time complexity.
+  The work also explores hyperparameter optimization techniques to improve NIDS (Network Intrusion Detection System) performance.
+  Evaluation is done on two recent intrusion detection datasets:
+* CICIDS 2017
+* UNSW-NB 2015
+  Key results:
+* Training sample size reduced by up to 74%.
+* Feature set size reduced by up to 50%.
+* Hyperparameter optimization further improves performance.
+* Achieves over 99% detection accuracy on both datasets.
+* Outperforms recent literature with 1–2% higher accuracy and 1–2% lower false alarm rate.
+One of the reason we are doing the research:
+Several protection mechanisms have been proposed such as firewalls, user authentication, and the deployment of antivirus and malware programs as a first line of defense . However, these mechanisms have not been able to completely protect the organizations’ networks, particularly with contemporary attacks 
+
+
+There are two types of intrusion detection system:
+One is signature based and another is anomaly based: 
+Signature-based detection systems base their detection on the observation of pre-defined attack patterns. Thus, they have proven to be effective for attacks with wellknown signatures and patterns
+While anomaly-based detection systems base their detection on the observation of any behavior or pattern that deviates from what is considered to be normal or signature based.
+Therefore, these systems can detect unknown attacks or intrusions based on the built models that characterize normal behavior
+This is particularly evident given the high volume of generated network traffic data, continuously evolving environments, vast amounts of features collected that form the training datasets (high dimensional datasets), and the need for real-time intrusion detection   
+having redundant or irrelevant features can have a negative impact on the detection capabilities of NIDSs as it slows down the model training process. Therefore, it is important to choose the most suitable subset of features and optimize the parameters of the machine learning (ML)-based detection models to enhance their performance [a]
+
+
+What they do in making the model is:
+ Determines the minimum suitable training size
+Two different feature selection techniques, namely information gain and correlation-based feature selection
+Does hyperparameter tuning
+Test Dataset: CICIDS 2017 dataset [12] (which is the updated version of the ISCX 2012 dataset [13] used in our previous work [11]) and the UNSW-NB 2015 dataset [14]
+Evaluation techniques: accuracy (acc), precision, recall, and false alarm rate (FAR)
+
+
+What we can also do is: Optimize the already premade models of intrusion detection
+
+
+
+
+The main contributions and differences between this work and our previous work in [11] can be summarized as follows: 
+• Propose a novel multi-stage optimized ML-based NIDS framework that reduces computational complexity and enhances detection accuracy.
+ • Study the impact of oversampling techniques and determine the minimum suitable training sample size for effective intrusion detection.
+ • Explore the impact of different feature selection techniques on the NIDS detection performance and time (training and testing) complexity. 
+• Propose and investigate different ML hyper-parameter optimization techniques and their corresponding enhancement of the NIDS detection performance.
+ • Evaluate the performance of the optimized ML-based NIDS framework using two recent state-of-the-art datasets, namely the CICIDS 2017 dataset [12] and the UNSW-NB 2015 dataset [14]. 
+• Compare the performance of the proposed framework with recent works from the literature and illustrate the improvement of detection accuracy, reduction of FAR, and a reduction of both the training sample size and feature set size. 
+
+
+Different types of normalization, different types of feature selection techniques and different hyperparameter tuning values, and different filling missing values filling technique.
+
+
+Doing different types of cross validation:
+* K-Fold Cross-Validation: The data is split into K folds; the model is trained K times, using each fold as a validation set once. 
+* Leave-One-Out Cross-Validation (LOOCV): A special case of K-Fold where K equals the total number of data points. Each data point is used as a test set once. 
+
+
+
+
+DATASET REVIEW: 
+CICDS DATASET 2018 SOLVED: 
+https://www.kaggle.com/code/christianmmarquezg/cicids2018-examplecolombia
+ Overall Metrics analysis for the solution: 
+* Accuracy = 0.20: The model got only 20% of all predictions correct. Since the dataset is dominated by class 0, this shows the model is misclassifying massively.
+
+* Macro avg (simple average across classes):
+
+   * Precision = 0.25
+
+   * Recall = 0.23
+
+   * F1 = 0.08 → basically near useless performance on minority classes.
+
+      * Weighted avg (weighted by support):
+
+         * Precision = 1.00 (heavily dominated by class 0, where precision is perfect).
+
+         * Recall = 0.20 (low because recall for class 0 is terrible).
+
+         * F1 = 0.33 (same reason).
+Why is this happening?
+            1. Extreme class imbalance. Model is biased toward class 0 (majority).
+
+            2. Poor learning of minority classes. With only 81, 20, and 10 samples, the model has almost no data to learn from.
+
+            3. Possibly a degenerate classifier. It might be predicting “0” almost always → hence 100% precision for class 0 but terrible recall.
+
+________________
+
+
+5. How to Fix / Improve
+               * Resampling:
+
+                  * Oversample minority classes (SMOTE, ADASYN).
+
+                  * Undersample majority class.
+
+                     * Class weights: In sklearn classifiers, set class_weight="balanced".
+
+                     * Better evaluation metrics: Use AUC-ROC or PR (precision-recall) curves, since accuracy is misleading under imbalance.
+
+                     * Collect more minority samples. With 10–80 samples, deep models will almost always fail.
+
+                     * Try anomaly detection framing. If classes 1–3 are very rare, treat them as anomalies instead of normal classification.\
+
+
+FOLLOWING LINKS PROVIDE THE CODE FOR THE DATASETS GIVEN IN OUR RESEARCH
+CICDS 2018 
+https://www.kaggle.com/datasets/towhidultonmoy/cicids2018/code
+
+CICDS 2017:
+https://www.kaggle.com/datasets/chethuhn/network-intrusion-dataset/code
+
+
+
+
+Malware Detection in Network Traffic:
+https://www.kaggle.com/datasets/agungpambudi/network-malware-detection-connection-analysis/code
+
+
+NORMAL TRAFFIC PATTERNS: 
+https://www.kaggle.com/datasets/ravikumargattu/network-traffic-dataset/code?datasetId=3932483
+
+
+
+
+
+
+.
+
+
+
+
+[a]What it basically means is that we have to do feature extraction for high dimensional data and only use needed data for high efficiency and speed in real time detection as it is very important to reduce computational complexity while maintaining its
+detection performance
