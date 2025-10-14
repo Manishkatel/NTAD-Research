@@ -1,1 +1,1 @@
-Research topic: Anamoly Detection using Machine Learning
+Research topic: Network Anamoly Detection For Small Business
